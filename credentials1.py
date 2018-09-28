@@ -1,7 +1,8 @@
 # CMPT 120 Intro to Programming
-# Lab #5 – Working with Strings and Functions
+# Lab #5 – Working with Strings and Functions 
 # Author: Lucas Janzen
 # Created: 2018-09-25
+# This is the second part of the lab
 
 def name():
     first = input("Enter your first name: ").lower()
