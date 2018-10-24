@@ -4,42 +4,58 @@
 # Created: YYYY-MM-DD
 symbol = [ " ", "x", "o" ]
 def printRow(row):
-    board = [0,0,0,
-             0,0,0,
-             0,0,0]
-    print(board[0],board[1],board[2])
-    print(board[3],board[4],board[5])
-    print(board[6],board[7],board[8])
+    completeRow= "|"
+    for holder in row:
+        if holder == 0:
+            completeRow += ("   |")
+        if holder == 1:
+            completeRow +=(" x |")
+        if holder == 2:
+            completeRow +=(" o |")
+    completeRow += ("\n+-----------+")
+    print(completeRow)
     # initialize output to the left border
     # for each square in the row...
-    for i in board:
-        print (i)
     # add to output the symbol for this square followed by a border
     # print the completed output for this row
-pass
 def printBoard(board):
+    print("+-----------+")
+    for row in board:
+        printRow(row)
     # print the top border
     # for each row in the board...
     # print the row
     # print the next border
-    pass
 def markBoard(board, row, col, player):
+    if hasBlanks(board):
+        row = int(row)
+        col = int(col)
+    if player == 1:
+        board[col][row] = 1
+    elif player == 2:
+        board[col][row] = 2
+    else:
+        print("This square is full")
+        return(False)
     # check to see whether the desired square is blank
     # if so, set it to the player number
-    pass
+    
 def getPlayerMove():
-    player = input("Please state if you are player 1 or 2")
-    row = input("Please enter the row number you wish to mark")
-    column = input("Please enter the column number you wish to mark")
-    if board
-    # prompt the user separately for the row and column numbers
+    input("") # prompt the user separately for the row and column numbers
     return (0,0) # then return that row and column instead of (0,0)
 def hasBlanks(board):
+    for row in board:
+        for col in row:
+            if col == 0
+                return(True)
+            else:
+                continue
+            return(False)
     # for each row in the board...
     # for each square in the row...
     # check whether the square is blank
     # if so, return True
-    return True # if no square is blank, return False
+    # if no square is blank, return False
 def main():
     board = [[0,0,0],
              [0,0,0],
@@ -50,4 +66,5 @@ def main():
     row,col = getPlayerMove()
     markBoard(board,row,col,player)
     player = player % 2 + 1 # switch player for next turn
-    main()
+    main()
+
