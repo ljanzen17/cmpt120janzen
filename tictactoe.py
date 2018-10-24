@@ -41,8 +41,8 @@ def markBoard(board, row, col, player):
     # if so, set it to the player number
     
 def getPlayerMove():
-    input("") # prompt the user separately for the row and column numbers
-    return (0,0) # then return that row and column instead of (0,0)
+    row,col = input("Please enter the row and the the column separated by a comma of the position you want to play: ").split(",") # prompt the user separately for the row and column numbers
+    return (row,col) # then return that row and column instead of (0,0)
 def hasBlanks(board):
     for row in board:
         for col in row:
