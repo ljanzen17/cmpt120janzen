@@ -18,6 +18,25 @@ def drawPoint(p1,p2,text,color):
     tempPoint.setTextColor(color)
     return(tempPoint)
 
+def usebutton(x,buttonList,buttonToValue):
+   # code that puts the x in window
+   # usebutton(checkbutton(buttonList,
+   #     drawPoint(90,75,x,'black')
+   print(x)
+   eqchar = drawPoint(100,70,x,'black')
+   eqchar.draw(win)
+
+def checkbutton(clickpos,buttonList, buttonToValue):
+    for i in buttonList:
+        if clickpos[0] > i.p1.x and clickpos[0] < i.p2.x:
+            if clickpos[1] > i.p1.y and clickpos[1] < i.p2.y:
+                return(usebutton(buttonToValue[i],buttonList,buttonToValue))
+            else:
+                pass
+
+
+        
+
 click7 = drawRec(65,110,110,155,'white')
 click8 = drawRec(115,110,160,155,'white')
 click9 = drawRec(165,110,210,155,'white')
@@ -55,6 +74,15 @@ clickdecimal.draw(win)
 clickminus.draw(win)
 clickeq.draw(win)
 clickdel.draw(win)
+
+buttonList = [click7,click8,click9,clickdiv,click4,click5,click6,clickmult,click1,
+           click2,click3,clickadd,clickplusmin,click0,clickdecimal,clickminus,
+           clickdel,clickeq]
+
+buttonToValue = {click7 : '7', click8 : '8', click9 : '9', clickdiv : '/', click4 : '4',
+                 click5 : '5', click6 : '6', clickmult : '*', click1 : '1', click2 : '2',
+                 click3 : '3', clickadd : '+', clickplusmin : '+/-', click0 : '0',
+                 clickdecimal : '.', clickminus : '-', clickdel : 'del', clickeq : '='}
 
 num7 = drawPoint(87.5,132.5,'7','black')
 num8 = drawPoint(137.5,132.5,'8','black')
@@ -96,14 +124,61 @@ numdel.draw(win)
 numeq.draw(win)
 
 
+#def getmouse():
+#    clickpos = win.getmouse()
+    
 
 
 
 
 
+    
+
+#calc_functions.py
+def modifyEquation(idx, eq, value):
+    # remove the two operands and the operqator
+    del eq[idx - 1:idx + 2]
+    # insert the result
+    eq.insert(idx - 1, value)
+    # move the index back one place
+    idx = idx - 1
+    return idx, eq
+    
+def solveEquation(eq):
+    opIdx = 1
+    while '*' in eq or '/' in eq:
+        if eq[opIdx] == '*':
+            # calculate the operation
+            result = float(eq[opIdx - 1]) * float(eq[opIdx + 1])
+            # update the equation list
+            opIdx, eq = modifyEquation(opIdx, eq, result)
+        elif eq[opIdx] == '/':
+            result = float(eq[opIdx - 1]) / float(eq[opIdx + 1])
+            opIdx, eq = modifyEquation(opIdx, eq, result)
+        else:
+            opIdx = opIdx + 1    
+        if opIdx >= len(eq):
+            break
+    opIdx = 1 
+    while '+' in eq or '-' in eq:
+        if eq[opIdx] == '+':
+            result = float(eq[opIdx - 1]) + float(eq[opIdx + 1])
+            opIdx, eq = modifyEquation(opIdx, eq, result)
+        elif eq[opIdx] == '-':
+            result = float(eq[opIdx - 1]) - float(eq[opIdx + 1])
+            opIdx, eq = modifyEquation(opIdx, eq, result)
+        else:
+            opIdx = opIdx + 1
+        if opIdx >= len(eq):
+            break
+    return eq[0]
 
 
 
+def clickFunc():
+    mouseLoc = win.getMouse()
+    clickpos = [mouseLoc.x,mouseLoc.y]
+    checkbutton(clickpos,buttonList,buttonToValue)
 
-
-
+while 1:
+    clickFunc()
