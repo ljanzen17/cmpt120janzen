@@ -18,24 +18,45 @@ def drawPoint(p1,p2,text,color):
     tempPoint.setTextColor(color)
     return(tempPoint)
 
-def usebutton(x,buttonList,buttonToValue):
-   # code that puts the x in window
-   # usebutton(checkbutton(buttonList,
-   #     drawPoint(90,75,x,'black')
-   print(x)
-   eqchar = drawPoint(100,70,x,'black')
-   eqchar.draw(win)
+def usebutton(x,buttonList,buttonToValue,eqbar):
+   solution = '1+2'
+   if x == 'del':
+       pass
+   else:
+       eqchar = drawPoint(100+(len(eqbar))*10,70,x,'black')
+       eqchar.draw(win)
 
-def checkbutton(clickpos,buttonList, buttonToValue):
+   if x == '=':
+       equationElements = []
+       for element in eqbar:
+           equationElements.append(buttonToValue[element])
+           
+       solution = drawPoint(100+(len(eqbar)+2)*10,70,eqsolver(equationElements, eqbar),'black')
+       
+       solution.draw(win)
+
+def checkbutton(clickpos,buttonList, buttonToValue,eqbar):
     for i in buttonList:
         if clickpos[0] > i.p1.x and clickpos[0] < i.p2.x:
             if clickpos[1] > i.p1.y and clickpos[1] < i.p2.y:
-                return(usebutton(buttonToValue[i],buttonList,buttonToValue))
+                if buttonToValue[i] != 'del':
+                    eqbar.append(i)
+                return(usebutton(buttonToValue[i],buttonList,buttonToValue,eqbar))
             else:
                 pass
 
 
+def eqsolver(stringToEval,eqbar):
+
+    solution = solveEquation(stringToEval)
+    return(solution)
+    
+
+
         
+        
+        
+    
 
 click7 = drawRec(65,110,110,155,'white')
 click8 = drawRec(115,110,160,155,'white')
@@ -173,12 +194,12 @@ def solveEquation(eq):
             break
     return eq[0]
 
+eqbar = []
 
-
-def clickFunc():
+def clickFunc(eqbar):
     mouseLoc = win.getMouse()
     clickpos = [mouseLoc.x,mouseLoc.y]
-    checkbutton(clickpos,buttonList,buttonToValue)
+    checkbutton(clickpos,buttonList,buttonToValue,eqbar)
 
 while 1:
-    clickFunc()
+    clickFunc(eqbar)
