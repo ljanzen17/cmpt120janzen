@@ -5,7 +5,6 @@ class CalculatorEngine:
         pass
 
     def process(self, key,ineq,mem):
-        print(mem)
         if key == "=":
             #return(solveEquation(ineq))
             return False
@@ -21,10 +20,9 @@ class CalculatorEngine:
         elif key == "del":
             ineq = ineq[-1]
             return "del"
-            
-        
-        
-        else:
-            print(key)
-            return key
 
+
+
+        else:
+            print("key= ",key)
+            return key
